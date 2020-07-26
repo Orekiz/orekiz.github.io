@@ -19,7 +19,8 @@ nav:
   articles: /archives/
   分类: /categories/
   标签: /tags/
-  projects: projects_url
+  projects: https://github.com/orekiz
+  search: /search/
 
 
 # Links to your social media accounts.
