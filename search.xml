@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>箭头函数</title>
+      <link href="/2020/07/25/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/"/>
+      <url>/2020/07/25/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6 中 允许使用 “箭头”(=&gt;) 定义函数。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="params">v</span> =&gt;</span> v</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params">v</span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> v</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>无参或者多个参数，使用一个圆括号代表参数部分。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="params">()</span> =&gt;</span> <span class="number">5</span></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="number">5</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1, num2</span>) =&gt;</span> num1 + num2</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">var</span> sum = <span class="function"><span class="keyword">function</span> (<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> num1 + num2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>如果箭头函数的代码块只有一行代码，可以省略大括号以及return，<br>如果代码块多于一行则需要使用大括号，并且使用return语句返回。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1, num2</span>) =&gt;</span> &#123; <span class="keyword">return</span> num1 + num2 &#125;</span><br></pre></td></tr></table></figure><p>因为大括号内为代码块，如果箭头函数直接返回一个对象，必须在对象外面加上括号，否则会报错。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">var</span> getTempItem = <span class="function"><span class="params">id</span> =&gt;</span> &#123; <span class="attr">id</span>: id, <span class="attr">name</span>: <span class="string">"Temp"</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不报错</span></span><br><span class="line"><span class="keyword">var</span> getTempItem = <span class="function"><span class="params">id</span> =&gt;</span> (&#123; <span class="attr">id</span>: id, <span class="attr">name</span>: <span class="string">"Temp"</span> &#125;)</span><br></pre></td></tr></table></figure><h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol><li>函数体内的 <code>this</code> 对象，就是定义时所在的对象，而不是使用时所在的对象。(往外寻找this)</li><li>不可以当作构造函数，也就是说，不可以使用 <code>new</code> 命令，否则会抛出一个错误。</li><li>不可以使用 <code>arguments</code> 对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。</li><li>不可以使用 <code>yield</code> 命令，因此箭头函数不能用作 Generator 函数。</li></ol><p>上面四点中，第一点尤其值得注意。this对象的指向是可变的，但是在箭头函数中，它是固定的。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, <span class="keyword">this</span>.id);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> id = <span class="number">21</span>;</span><br><span class="line"></span><br><span class="line">foo.call(&#123; <span class="attr">id</span>: <span class="number">42</span> &#125;);</span><br><span class="line"><span class="comment">// id: 42</span></span><br></pre></td></tr></table></figure><p>上面代码中，<code>setTimeout</code> 的参数是一个箭头函数，这个箭头函数的定义生效是在 <code>foo</code> 函数生成时，而它的真正执行要等到 100 毫秒后。如果是普通函数，执行时 <code>this</code> 应该指向全局对象 <code>window</code> ，这时应该输出 <code>21</code>。但是，箭头函数导致<code>this</code>总是指向函数定义生效时所在的对象（本例是<code>{id: 42}</code>），所以输出的是<code>42</code>。</p><h4 id="更多详细内容"><a href="#更多详细内容" class="headerlink" title="更多详细内容"></a>更多详细内容</h4><p><a href="https://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0" target="_blank" rel="noopener" title="阮一峰-ES6-函数的拓展-箭头函数">阮一峰-ES6-函数的拓展-箭头函数</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> javascript </category>
+          
+          <category> es6 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> javascript </tag>
+            
+            <tag> es6 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
