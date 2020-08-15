@@ -1,6 +1,6 @@
 ---
-title: let和const
-date: 2020-07-26 17:05:58
+title: class
+date: 2020-08-15 14:20:58
 tags:
     - javascript
     - es6
