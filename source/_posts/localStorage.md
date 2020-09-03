@@ -37,6 +37,35 @@ var nickname = localStorage.getItem('key')
 localStorage.removeItem('key')
 ```
 
+### localStorage 与 JSON 的配合
+
+```javascript
+let value = [
+  {
+    id: 1,
+    name: 'first'
+  },
+  {
+    id: 2,
+    name: 'second'
+  },
+  {
+    id: 3,
+    name: 'third'
+  }
+]
+// 通过JSON.stringify将js的值序列化成JSON字符串
+value = JSON.stringify(value)
+// 存入 
+localStorage.setItem('key', value)
+
+// 取值
+let value = localStorage.getItem('key')
+// 通过JSON.parse将JSON字符串解析成js值
+value = JSON.parse(value)
+console.log(value)
+```
+
 ### summary
 
 1. `localStorage`只支持`String`类型的存储，如果存进去的是`Number`，再去取值的时候又会变成`String`
